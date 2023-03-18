@@ -1,0 +1,58 @@
+{% extends "poll/base.html" %}
+
+{% block title %}Create Poll{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create A New Poll</h3>
+            </div>
+                
+            <form method="POST">
+                {% csrf_token %}
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="question">Enter Poll Question</label>
+                                <textarea class="form-control" name="question" rows="3" style="resize:none;" required>{{ form.question.value|default:'' }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="option1">Option 1</label>
+                                <input type="text" class="form-control" name="op1" value="{{ form.op1.value|default:'' }}" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="option2">Option 2</label>
+                                <input type="text" class="form-control" name="op2" value="{{ form.op2.value|default:'' }}" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="option3">Option 3</label>
+                                <input type="text" class="form-control" name="op3" value="{{ form.op3.value|default:'' }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <hr />
+                        <div class="col-lg-4">
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

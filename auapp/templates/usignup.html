@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block content %}
+	<style>
+		span {
+			font-size: 23px;
+			color: red;
+		}
+
+		form {
+			max-width: 500px;
+			margin: 0 auto;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			font-size: 18px;
+			{% comment %} border: none; {% endcomment %}
+			{% comment %} border-bottom: 2px solid #ddd; {% endcomment %}
+			margin-bottom: 20px;
+		}
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		@media only screen and (min-width: 768px) {
+			input[type="text"],
+			input[type="password"] {
+				font-size: 20px;
+				width: 80%;
+				margin: 0 auto;
+			}
+
+			input[type="submit"] {
+				font-size: 20px;
+			}
+		}
+
+		@media only screen and (max-width: 767px) {
+			input[type="text"],
+			input[type="password"] {
+				font-size: 16px;
+			}
+
+			input[type="submit"] {
+				font-size: 16px;
+			}
+		}
+	</style>
+
+	<h1>Signup Page</h1>
+	<form method ="POST" onsubmit="return validateForm()">
+	{% csrf_token %}
+		<input type="text" id="username" name="un" placeholder="enter username" required><br>
+		<span id="username_error"></span>
+		<br>
+		<input type="password" id="password1" name="pw1" placeholder="enter password" required><br>
+		<span id="password1_error"></span>
+		<br>
+		<input type="password" id="password2" name="pw2" placeholder="enter password" required><br>
+		<span id="password2_error"></span>
+		<br>
+		<input type="Submit" value="Register"/>
+	</form>
+	{{msg}}
+
+	<script>
+		var username = document.getElementById("username");
+		var password1 = document.getElementById("password1");
+		var password2 = document.getElementById("password2");
+
+		username.addEventListener("blur", checkUsername);
+		password1.addEventListener("blur", checkPassword1);
+		password2.addEventListener("blur", checkPassword2);
+
+		function checkUsername() {
+			var usernameValue = username.value.trim();
+			if (usernameValue.length < 5 || usernameValue.length > 20) {
+				document.getElementById("username_error").innerHTML = "Username should be between 5 and 20 characters.";
+				return false;
+			} else {
+				document.getElementById("username_error").innerHTML = "";
+				return true;
+			}
+		}
+
+		function checkPassword1() {
+			var password1Value = password1.value.trim();
+			if (password1Value.length < 8) {
+				document.getElementById("password1_error").innerHTML = "Password should be at least 8 characters.";
+				return false;
+			} else {
+				document.getElementById("password1_error").innerHTML = "";
+				return true;
+			}
+		}
+
+		function checkPassword2() {
+			var password2Value = password2.value.trim();
+			if (password1.value !== password2Value) {
+				document.getElementById("password2_error").innerHTML = "Passwords do not match.";
+				return false;
+			} else {
+				document.getElementById("password2_error").innerHTML = "";
+				return true;
+			}
+		}
+
+		function validateForm() {
+			var isUsernameValid = checkUsername();
+			var isPassword1Valid = checkPassword1();
+			var isPassword2Valid = checkPassword2();
+
+			return isUsernameValid && isPassword1Valid && isPassword2Valid;
+		}
+	</script>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+{% block content %}
+	<h1>Signup Page</h1>
+	<form method ="POST">
+	{% csrf_token %}
+		<input type="text" name="un" placeholder="enter username" required>
+		<br><br>
+		<input type="password" name="pw1" placeholder="enter password" required>
+		<br><br>
+		<input type="password" name="pw2" placeholder="enter password" required>
+		<br><br>
+		<input type="Submit" value="Register"/>
+	</form>
+	{{msg}}
+{% endblock %} {% endcomment %}

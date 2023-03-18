@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<title>Authentication App by RR</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			* {
+				font-size: 40px;
+			}
+			
+			.nav {
+				background-color: rgba(1, 6, 255, 0.7);
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			
+			.nav a {
+				color: white;
+				text-decoration: none;
+				margin: 20px;
+				padding: 10px;
+				border-radius: 5px;
+			}
+			
+			@media screen and (min-width: 768px) {
+				.nav a {
+					margin: 20px 40px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+	<center>
+		<div class="nav">
+			{% if user.is_authenticated %}
+				{% if request.resolver_match.namespace == 'poll' %}
+					<a href="{% url 'home' %}">Homepage</a>
+				{% else %}
+					<a href="{% url 'poll:home' %}">Poll Home</a>
+				{% endif %}
+				<a href="{% url 'ulogout' %}">Logout</a>
+				<a href="{% url 'ucp' %}">Change Password</a>
+			{% else %}
+				<a href="{% url 'uhome' %}">Login</a>
+				<a href="{% url 'usignup' %}">Signup</a>
+			{% endif %}
+		</div>
+		{% block content %}
+		{% endblock %}
+	</center>
+	</body>
+</html> 

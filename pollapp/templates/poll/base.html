@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+    .navbar-default, .btn, .form-control, .panel {
+        border-radius: 0;
+    }
+    .navbar-default {
+        background-color: rgba(1, 6, 255, 0.7);
+        border-color: rgba(245, 245, 220, .6);
+        box-shadow: 0px 3px 3px 0px #ddd;
+        font-size: large;
+    }
+    .navbar-default .navbar-nav>li>a {
+        color: #fff;
+    }
+    .navbar-default .navbar-nav>li>a:hover {
+        color: rgb(244, 248, 4);
+    }
+    .navbar-default .navbar-brand:hover {
+        color: rgb(244, 248, 4);
+    }
+    .navbar-default .navbar-brand {
+        color: #fdf0f0;
+    }
+    .navbar-default .navbar-nav>.active>a, 
+    .navbar-default .navbar-nav>.active>a:focus, 
+    .navbar-default .navbar-nav>.active>a:hover {
+        background-color: rgba(1, 6, 255, 0.7);
+        border-bottom: 4px solid #ddd;
+    }
+    .panel-default > .panel-heading {
+        color: rgb(255, 255, 255);
+        background-color: rgba(1, 6, 255, 0.7);
+        border-color: rgba(245, 245, 220, .6);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0; 
+        font-size: large;
+    }
+    .panel-footer {
+        background-color: rgba(1, 6, 255, 0.7);
+        border-color: rgba(245, 245, 220, .4);
+        font-size: large;
+        color: #fff;
+    }
+    .panel {
+        box-shadow: 0px 3px 3px 0px #ddd;
+    }
+    a.navbar-brand, .panel-title {
+        font-weight: bolder;
+    }
+    .navbar-toggle {
+        border-color: #fff !important; /* Set the border color to white */
+      }
+      
+      .navbar-toggle .icon-bar {
+        background-color: #fff !important; /* Set the icon color to white */
+      }
+      
+      
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+          
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% if user.is_authenticated %}
+                    <a class="navbar-brand" href="{% url 'home' %}">Poll Application</a>
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'auth_signup' %}">AUApp</a>
+                {% endif %}
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'poll:create' %}">Create</a></li>
+                        <li><a href="{% url 'ucp' %}">Change Password</a></li>
+                        <li><a href="{% url 'ulogout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'uhome' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block main %}{% endblock %}
+    </div>
+ 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-4QF4T/APMHe4EwhLYArWerYsPoPpM7Kf/kW8EclCZebOtFfZKtVQgOm8gRi1KsUJ" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
